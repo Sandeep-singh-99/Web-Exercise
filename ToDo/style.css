@@ -1,15 +1,13 @@
 li {
     list-style-type: none;
 }
-#fi {
+.done {
     color: gray;
 }
 
-#thi {
-    color: gray;
-}
 
-#btn1 {
+
+#clear {
     background-color: red;
     color: white
 }
