@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Geolocation</title>
+</head>
+<body>
+    <div class="box">Sandeep Singh</div>
+    <p>Displaying using Latitude and Longitude</p>
+    <button class="btn" onclick="getLocation()">Click</button>
+    <p id="demo1"></p>
+</body>
+<script>
+    var variable1 = document.getElementById('demo1');
+
+    function getLocation() {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+
+    function showPosition(position) {
+        variable1.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+    }
+</script>
+</html>
