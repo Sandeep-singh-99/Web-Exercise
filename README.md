@@ -55,3 +55,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 Maintained by [Your Name](https://yourwebsite.com)
+
+## Animated Search Bar
+
+![Screenshot](./Animated%20Search%20Box/search-bar.png)
