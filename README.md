@@ -59,3 +59,9 @@ Maintained by [Your Name](https://yourwebsite.com)
 ## Animated Search Bar
 
 ![Screenshot](./Animated%20Search%20Box/search-bar.png)
+
+## Responsive Navbar/Header
+
+![Screenshot](./Responsive%20Navbar/Screenshot%202024-09-26%20192419.png)
+
+![Screenshot](./Responsive%20Navbar/Screenshot%202024-09-26%20192436.png)
