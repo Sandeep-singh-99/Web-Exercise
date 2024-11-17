@@ -72,3 +72,6 @@ Maintained by [Your Name](https://yourwebsite.com)
 
 ## Product Page
 ![Screenshot](./Product%20Page/Screenshot%202024-11-01%20115322.png)
+
+## Price Range Slider
+![Screenshot](./Price%20Range%20Slider/Screenshot%202024-11-17%20095444.png)
