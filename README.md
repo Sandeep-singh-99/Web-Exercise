@@ -75,3 +75,6 @@ Maintained by [Your Name](https://yourwebsite.com)
 
 ## Price Range Slider
 ![Screenshot](./Price%20Range%20Slider/Screenshot%202024-11-17%20095444.png)
+
+## Toast Notification
+![Screenshot](./Toast%20Notification/Screenshot%202025-01-18%20140225.png)
