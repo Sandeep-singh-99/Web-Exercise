@@ -78,3 +78,7 @@ Maintained by [Your Name](https://yourwebsite.com)
 
 ## Toast Notification
 ![Screenshot](./Toast%20Notification/Screenshot%202025-01-18%20140225.png)
+
+## Bookmark Page
+
+![Screenshot](./Bookmark%20Landing%20Page/Screenshot%202025-01-21%20113857.png)
