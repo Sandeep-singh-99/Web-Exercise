@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detect Clicked Element and Position</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="tooltip" id="tooltip"></div>
+
+<h1>Click on elements to see their tag and position</h1>
+<p>This is a paragraph. Click on it!</p>
+<button>Click me</button>
+<div style="width: 100px; height: 100px; background-color: lightblue;">Click this box</div>
+
+<script>
+    const tooltip = document.getElementById('tooltip');
+
+    document.addEventListener('click', (event) => {
+        const clickedElement = event.target;
+        const position = clickedElement.getBoundingClientRect();
+
+        // Get the tag name of the clicked element
+        const elementTag = clickedElement.tagName;
+
+        // Get the element's current position
+        const top = position.top + window.scrollY; // Account for page scroll
+        const left = position.left + window.scrollX;
+
+        // Display the tooltip near the clicked element
+        tooltip.innerHTML = `Tag: ${elementTag}<br>Position: Top - ${Math.round(top)}px, Left - ${Math.round(left)}px`;
+        tooltip.style.display = 'block';
+        tooltip.style.top = `${top + 20}px`; // Offset to position below the element
+        tooltip.style.left = `${left + 20}px`; // Offset to position to the right of the element
+    });
+
+    document.addEventListener('scroll', () => {
+        tooltip.style.display = 'none'; // Hide the tooltip when the user scrolls
+    });
+</script>
+
+</body>
+</html>
