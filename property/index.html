@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Website Prototype</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">PropertyPro</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#listings">Listings</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger">☰</div>
+    </nav>
+
+    <!-- Homepage -->
+    <section id="home" class="hero">
+        <h1>Find Your Dream Home</h1>
+        <div class="search-bar">
+            <select id="property-type">
+                <option value="">Property Type</option>
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+            </select>
+            <input type="text" id="location" placeholder="Location">
+            <input type="number" id="price" placeholder="Max Price">
+            <button onclick="searchProperties()">Search</button>
+        </div>
+    </section>
+
+    <!-- Listings -->
+    <section id="listings" class="listings">
+        <h2>Available Properties</h2>
+        <div class="property-grid" id="property-grid">
+            <!-- Properties populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Property Details (Hidden by default) -->
+    <section id="details" class="details hidden">
+        <div class="carousel" id="carousel">
+            <img src="https://via.placeholder.com/800x400?text=Property+Image" alt="Property Image" id="carousel-image">
+            <button class="carousel-btn prev" onclick="changeImage(-1)">←</button>
+            <button class="carousel-btn next" onclick="changeImage(1)">→</button>
+        </div>
+        <div class="details-content">
+            <h2 id="details-title">Property Title</h2>
+            <p id="details-price">Price</p>
+            <p id="details-address">Address</p>
+            <p id="details-specs">Specs</p>
+            <p id="details-description">Description</p>
+            <div class="map-placeholder">Map Placeholder (Google Maps Embed)</div>
+            <form id="contact-form" onsubmit="handleFormSubmit(event)">
+                <h3>Contact Agent</h3>
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>Email: info@propertypro.com | Phone: (123) 456-7890</p>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropertyPro | Find Your Dream Home</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-color: #2249a3;
+      --accent-color: #35c1b4;
+      --background: #f8fafd;
+      --card-bg: #ffffff;
+      --shadow: 0 4px 12px rgba(48, 56, 97, 0.09);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--background);
+      color: #23304a;
+    }
+    nav {
+      background: var(--card-bg);
+      padding: 1.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.7rem;
+      color: var(--main-color);
+      letter-spacing: 1px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #223150;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--accent-color);
+    }
+    .hamburger {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .hero {
+      min-height: 95vh;
+      background: linear-gradient( rgba(34,73,163,0.4), rgba(53,193,180,0.7) ), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      padding-top: 80px;
+    }
+    .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+    .search-bar {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      background: rgba(255,255,255,0.9);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    .search-bar input, .search-bar select {
+      padding: 0.7rem 1rem;
+      border: 1px solid #dde4fc;
+      border-radius: 6px;
+      min-width: 120px;
+      font-size: 1rem;
+    }
+    .search-bar button {
+      background: var(--main-color);
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .search-bar button:hover { background: var(--accent-color);}
+    .content-section { padding: 4rem 1rem 2rem 1rem; max-width: 1200px; margin: 0 auto;}
+    .section-title { font-size: 2rem; color: var(--main-color); margin-bottom: 2rem; text-align:center;}
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 2rem;
+    }
+    .property-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      position: relative;
+      min-height: 370px;
+      display: flex; flex-direction: column;
+    }
+    .property-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 20px rgba(34,73,163,0.17);
+    }
+    .property-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .badge {
+      background: var(--accent-color);
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      position: absolute;
+      top: 15px; left: 15px;
+      font-size: 0.8rem; 
+      font-weight:700;
+    }
+    .property-card h3 { font-size: 1.2rem; margin: 1rem 0 0.4rem 0; padding: 0 1rem; color: var(--main-color);}
+    .property-card p { margin: 0; padding: 0 1rem 0.6rem 1rem; color: #53607a;}
+    .card-btn { margin: 1rem 1rem 1.2rem 1rem; background: #2249a3; color:#fff; padding:0.5rem 1rem; border:none; border-radius:6px; cursor:pointer; font-weight:600;}
+    .card-btn:hover { background: #35c1b4; }
+    .details-modal-bg {
+      position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.45); display:none; justify-content:center; align-items:center; z-index:101;
+    }
+    .details-modal { background:#fff; border-radius:12px; max-width:750px; width:99vw; box-shadow:var(--shadow); overflow: hidden; display:flex; flex-direction:column;}
+    .carousel { position: relative; }
+    .carousel img {
+      width:100%; height:320px; object-fit:cover; border-radius:12px 12px 0 0;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(34,73,163,0.6);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 2rem;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .carousel-btn.prev { left: 14px; }
+    .carousel-btn.next { right: 14px;}
+    .modal-details { padding:2rem; }
+    .modal-details h2 { color: var(--main-color); margin:0; }
+    .modal-details .price { font-size:1.2rem; font-weight:700; margin-top:0.5rem;}
+    .modal-details .address { color: #666; margin-bottom: 0.7rem;}
+    .modal-details .specs { display:flex; gap:1rem; color:#008080; list-style:none; padding:0; margin:0 0 1.2rem 0;}
+    .modal-details .desc { margin:1rem 0;}
+    .modal-details .share { margin-top:0.7rem; }
+    .modal-details .share img { margin-right:0.4rem;}
+    .close-btn { position:absolute; top:8px; right:20px; background:transparent; border:none; font-size:2rem; cursor:pointer; color:#333; }
+    .agents, .testimonials { padding:3rem 1rem; background: #f7fbff; text-align:center;}
+    .agent-grid { display: flex; justify-content:center; gap:2rem; flex-wrap:wrap;}
+    .agent-card {
+      background:#fff; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.06);
+      padding:1rem 1.5rem; width:230px;
+    }
+    .agent-card img { width:80px; height:80px; border-radius:50%; object-fit: cover;}
+    .agent-card h4 { margin:0.6rem 0 0; }
+    .agent-card a { display:inline-block; margin-top:0.6rem; color:#2249a3; text-decoration:underline;}
+    .testimonials-list {display:flex; justify-content:center; gap:2rem; flex-wrap:wrap;}
+    .testimonial { max-width:320px; background:#fff; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.1); padding:1.5rem; margin-top:0.8rem;}
+    .testimonial p { font-style:italic; }
+    .testimonial span { display:block; margin-top:1rem; color:#2249a3; font-weight: bold;}
+    .contact { padding:3rem 1rem; background:#dde4fc; color:#23304a; text-align:center;}
+    .contact-form { display:flex; flex-direction:column; gap:1rem; max-width:400px; margin:2rem auto 0 auto;}
+    .contact-form input,.contact-form textarea { font-family: inherit; padding:0.7rem; border:1px solid #dde4fc; border-radius:6px;font-size:1rem;}
+    .contact-form button { background:var(--main-color); color:white; padding:0.7rem; border:none; border-radius:6px; cursor:pointer; font-size:1rem; font-weight:600;}
+    .contact-form button:hover { background:var(--accent-color);}
+    footer { text-align:center; font-size:1rem; color:#888; background:#fff; padding:2rem;}
+    @media (max-width:900px) {
+      .content-section, .agents, .testimonials { padding:2.5rem 0.3rem;}
+    }
+    @media (max-width:768px){
+      .nav-links {display:none; flex-direction:column; background:var(--card-bg); box-shadow:var(--shadow); position: absolute; top:70px; left:0; right:0;}
+      .hamburger{display:block;}
+      .property-card img, .carousel img { height: 160px;}
+    }
+    @media (max-width:530px){
+      .hero h1 {font-size:2rem;}
+      .property-card, .modal-details {padding:1rem;}
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <span class="logo">PropertyPro</span>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#listings">Listings</a></li>
+    <li><a href="#agents">Agents</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="hamburger">☰</span>
+</nav>
+
+<section id="home" class="hero">
+  <h1>Find Your Dream Home</h1>
+  <div class="search-bar">
+    <select id="property-type">
+      <option value="">Property Type</option>
+      <option value="house">House</option>
+      <option value="apartment">Apartment</option>
+    </select>
+    <input type="text" id="location" placeholder="Location">
+    <input type="number" id="price" placeholder="Max Price">
+    <button onclick="searchProperties()">Search</button>
+  </div>
+</section>
+
+<section id="listings" class="content-section">
+  <h2 class="section-title">Featured Listings</h2>
+  <div class="property-grid" id="property-grid"></div>
+</section>
+
+<div id="details-modal-bg" class="details-modal-bg">
+  <div class="details-modal">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <div class="carousel" id="modal-carousel">
+      <img src="" alt="Property Image" id="modal-image">
+      <button class="carousel-btn prev" onclick="changeModalImage(-1)">←</button>
+      <button class="carousel-btn next" onclick="changeModalImage(1)">→</button>
+    </div>
+    <div class="modal-details">
+      <h2 id="modal-title"></h2>
+      <div class="price" id="modal-price"></div>
+      <div class="address" id="modal-address"></div>
+      <ul class="specs" id="modal-specs"></ul>
+      <p class="desc" id="modal-desc"></p>
+      <div class="share">
+        <span>Share:</span>
+        <a href="#" title="Share on Facebook"><img src="https://img.icons8.com/color/24/facebook.png" alt="FB"></a>
+        <a href="#" title="Share on WhatsApp"><img src="https://img.icons8.com/color/24/whatsapp.png" alt="WA"></a>
+        <a href="#" title="Share on Twitter"><img src="https://img.icons8.com/color/24/twitter.png" alt="TW"></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="agents" class="agents">
+  <h2>Meet Our Agents</h2>
+  <div class="agent-grid">
+    <div class="agent-card">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Agent John">
+      <h4>John Smith</h4>
+      <p>Senior Agent</p>
+      <a href="mailto:john@propertypro.com">Contact</a>
+    </div>
+    <div class="agent-card">
+      <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Agent Emma">
+      <h4>Emma Johnson</h4>
+      <p>Sales Associate</p>
+      <a href="mailto:emma@propertypro.com">Contact</a>
+    </div>
+    <div class="agent-card">
+      <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Agent Carlos">
+      <h4>Carlos Rossi</h4>
+      <p>Client Advisor</p>
+      <a href="mailto:carlos@propertypro.com">Contact</a>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <h2 class="section-title">What Our Clients Say</h2>
+  <div class="testimonials-list">
+    <div class="testimonial">
+      <p>“PropertyPro made buying our first home smooth and stress-free!”</p>
+      <span>- Priya S., Delhi</span>
+    </div>
+    <div class="testimonial">
+      <p>“Responsive agents and great advice. Highly recommended.”</p>
+      <span>- Amit K., Mumbai</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact Us</h2>
+  <p>We're here to help with any property questions.</p>
+  <form class="contact-form" onsubmit="handleContactForm(event)">
+    <input type="text" placeholder="Your Name" required/>
+    <input type="email" placeholder="Your Email" required/>
+    <textarea placeholder="Your Message" required></textarea>
+    <button>Send Message</button>
+  </form>
+  <div style="margin-top:1.4rem;">
+    <p><strong>Email:</strong> info@propertypro.com</p>
+    <p><strong>Phone:</strong> (123) 456-7890</p>
+    <p><strong>Location:</strong> 123 Main St, Springfield</p>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 PropertyPro. All rights reserved.
+</footer>
+
+<script>
+const properties = [
+  {
+    id: 1, title: "Modern Family Home", price: "$500,000",
+    address: "123 Main St, Springfield",
+    specs: ["3 Beds", "2 Baths", "2000 sqft"],
+    desc: "A spacious family home with modern amenities and a large backyard.",
+    featured: true,
+    images: [
+      "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1460518451285-97b6aa326961?auto=format&fit=crop&w=800&q=80"
+    ],
+    type: "house"
+  },
+  {
+    id: 2, title:"Downtown Apartment", price:"$300,000",
+    address:"456 Oak Ave, Downtown",
+    specs:["2 Beds","1 Bath","1200 sqft"],
+    desc:"A cozy apartment in the heart of the city with great views.",
+    featured: true,
+    images:[
+      "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1503389152951-9c3d1602be2e?auto=format&fit=crop&w=800&q=80"
+    ],
+    type:"apartment"
+  },
+  {
+    id: 3, title: "Suburban Retreat", price: "$420,000",
+    address: "789 Willow Lane, Suburbia",
+    specs: ["4 Beds", "3 Baths", "2500 sqft"],
+    desc: "Quiet neighborhood, lush garden, spacious living with modern appliances.",
+    featured: false,
+    images: [
+      "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80"
+    ],
+    type: "house"
+  }
+];
+
+let filteredProps = [...properties];
+
+function displayProperties(props = filteredProps) {
+  const grid = document.getElementById("property-grid");
+  grid.innerHTML = "";
+  props.forEach(property => {
+    const card = document.createElement("div");
+    card.className = "property-card";
+    if(property.featured){
+      card.innerHTML = `<div class="badge">Featured</div>`;
+    }
+    card.innerHTML += `
+      <img src="${property.images}" alt="${property.title}">
+      <h3>${property.title}</h3>
+      <p>${property.price} &bull; ${property.address}</p>
+      <p>${property.specs.join(", ")}</p>
+      <button class="card-btn" onclick="event.stopPropagation();showDetails(${property.id})">View Details</button>
+    `;
+    card.onclick = ()=> showDetails(property.id);
+    grid.appendChild(card);
+  });
+}
+function searchProperties(){
+  const type = document.getElementById("property-type").value;
+  const location = document.getElementById("location").value.toLowerCase();
+  const price = parseInt(document.getElementById("price").value) || Infinity;
+  filteredProps = properties.filter(property => {
+    const propPrice = parseInt(property.price.replace("$", "").replace(",",""));
+    return (
+      (!type || property.type === type) &&
+      (!location || property.address.toLowerCase().includes(location)) &&
+      (propPrice <= price)
+    );
+  });
+  displayProperties(filteredProps);
+}
+let currentModalProp = null, currentImageIndex=0;
+function showDetails(id){
+  const property = properties.find(p => p.id===id);
+  if (!property) return;
+  currentModalProp = property;
+  currentImageIndex = 0;
+  document.getElementById("modal-image").src = property.images;
+  document.getElementById("modal-title").textContent = property.title;
+  document.getElementById("modal-price").textContent = property.price;
+  document.getElementById("modal-address").textContent = property.address;
+  document.getElementById("modal-desc").textContent = property.desc;
+  const specs = document.getElementById("modal-specs");
+  specs.innerHTML = "";
+  property.specs.forEach(s => {
+    let li = document.createElement("li"); li.textContent = s; specs.appendChild(li);
+  });
+  document.getElementById("details-modal-bg").style.display = "flex";
+}
+function closeModal(){
+  document.getElementById("details-modal-bg").style.display = "none";
+}
+function changeModalImage(direction){
+  if(!currentModalProp) return;
+  currentImageIndex = (currentImageIndex + direction + currentModalProp.images.length) % currentModalProp.images.length;
+  document.getElementById("modal-image").src = currentModalProp.images[currentImageIndex];
+}
+function handleContactForm(event){
+  event.preventDefault();
+  alert("Message sent! (This is a prototype simulation)");
+  event.target.reset();
+}
+// Hamburger Responsive Nav
+document.querySelector(".hamburger").onclick = () => {
+  const nav = document.querySelector(".nav-links");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+};
+displayProperties();
+</script>
+</body>
+</html>
